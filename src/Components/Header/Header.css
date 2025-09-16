@@ -1,0 +1,14 @@
+.container-header{
+    width: 100%;
+    min-height: 25vh;
+    max-height: 40vh;
+    background-color:#787d5b;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-header img{
+    height: 120%;
+    max-width: 100%;
+    object-fit: contain;
+}
