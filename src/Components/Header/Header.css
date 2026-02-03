@@ -1,7 +1,7 @@
 .container-header{
     width: 100%;
     min-height: 25vh;
-    max-height: 40vh;
+    max-height: 30vh;
     background-color:#787d5b;
     display:flex;
     align-items: center;
