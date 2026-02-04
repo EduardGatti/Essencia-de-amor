@@ -1,11 +1,29 @@
 import Header from '../../Components/Header/Header'
 import './PaginaPrincipal.css'
 import { useState } from 'react'
-import { FaWhatsapp, FaShoppingCart } from 'react-icons/fa'
+import { FaWhatsapp, FaShoppingCart, FaTimes } from 'react-icons/fa'
 
 function PaginaPrincipal() {
   const [termoPesquisa, setTermoPesquisa] = useState('')
-  
+  const [modalAberto, setModalAberto] = useState(false)
+  const [produtoSelecionado, setProdutoSelecionado] = useState(null)
+  const [essenciaSelecionada, setEssenciaSelecionada] = useState('')
+  const [endereco, setEndereco] = useState('')
+
+  // Lista de essências disponíveis
+  const essencias = [
+    'Toque Amor (Chá c/Roma)',
+    'Toque Alegria (Alecrim/Baunilha)',
+    'Ternura (Alecrim/Kiwi)',
+    'Harmonia (Chá/Kiwi)',
+    'Tranquility (Alecrim/Tranquility)',
+    'Ibisco/Roma',
+    'Lavanda',
+    'Canela',
+    'Chá Branco/Limão Siciliano',
+    'Chá Vermelho (Amora/Maguinolha)'
+  ]
+
   const produtos = [
     { id: 1, imagem: 'image1.png', titulo: 'Kit de Luxo - Pétalas Douradas', preco: 'R$ 300,00', categoria: 'kit luxo' },
     { id: 2, imagem: 'image2.png', titulo: 'Kit de Luxo - Elefante Dourado', preco: 'R$ 300,00', categoria: 'kit luxo' },
@@ -19,33 +37,73 @@ function PaginaPrincipal() {
     { id: 10, imagem: 'image10.png', titulo: 'Kit de Luxo - Toque de Neve', preco: 'R$ 300,00', categoria: 'kit luxo' },
     { id: 11, imagem: 'image11.png', titulo: 'Home Spray 100ml', preco: 'R$ 50,00', categoria: 'spray' },
     { id: 12, imagem: 'image12.png', titulo: 'Sabonete Liquido', preco: 'R$ 50,00', categoria: 'sabonete' },
-    { id: 13, imagem: 'image13.png', titulo: 'Refil de Difusor 240ml', preco: 'R$ 60,00', categoria: 'refil' },
+    { id: 13, imagem: 'image13.jpeg', titulo: 'Refil de Difusor 240ml', preco: 'R$ 60,00', categoria: 'refil' },
     { id: 14, imagem: 'image14.png', titulo: 'Mine Home Spray', preco: 'R$ 10,00', categoria: 'spray' },
     { id: 15, imagem: 'image15.png', titulo: 'Home Spray', preco: 'R$ 75,00', categoria: 'spray' }
   ]
 
-  const gerarMensagemWhatsApp = (produtoTitulo) => {
-    const mensagem = `Olá! Gostaria de fazer um pedido do produto:
+  // Função para verificar se o produto é um sabonete
+  const isSabonete = (produto) => {
+    return produto.categoria === 'sabonete' || 
+           produto.titulo.toLowerCase().includes('sabonete');
+  }
+
+  // Função para abrir modal
+  const abrirModalPedido = (produto) => {
+    setProdutoSelecionado(produto)
+    setEssenciaSelecionada('')
+    setEndereco('')
+    setModalAberto(true)
+  }
+
+  // Função para fechar modal
+  const fecharModal = () => {
+    setModalAberto(false)
+    setProdutoSelecionado(null)
+    setEssenciaSelecionada('')
+    setEndereco('')
+  }
+
+  // Função para gerar mensagem completa
+  const gerarMensagemWhatsApp = (produtoTitulo, essencia, enderecoCliente, isSaboneteProduto) => {
+    let mensagem = `Olá! Gostaria de fazer um pedido do produto:
 
 *${produtoTitulo}*
 
-Poderia me informar sobre a disponibilidade e formas de pagamento?
-Aguardo seu retorno! 😊`;
-    
+`;
+
+    if (!isSaboneteProduto && essencia) {
+      mensagem += `*Essência escolhida:* ${essencia}\n\n`;
+    }
+
+    if (enderecoCliente) {
+      mensagem += `*Endereço para entrega:*\n${enderecoCliente}\n\n`;
+    }
+
+    mensagem += `Poderia me informar sobre a disponibilidade e formas de pagamento?\nAguardo seu retorno! 😊`;
+
     return encodeURIComponent(mensagem);
   }
 
-  // Função para abrir WhatsApp
-  const abrirWhatsApp = (produtoTitulo) => {
-    const numero = '554888179143'; 
-    const mensagem = gerarMensagemWhatsApp(produtoTitulo);
+  // Função para abrir WhatsApp com todas as informações
+  const finalizarPedidoWhatsApp = () => {
+    if (!produtoSelecionado) return
+
+    const numero = '554888179143';
+    const isSaboneteProduto = isSabonete(produtoSelecionado);
+    const mensagem = gerarMensagemWhatsApp(
+      produtoSelecionado.titulo,
+      essenciaSelecionada,
+      endereco,
+      isSaboneteProduto
+    );
     const url = `https://wa.me/${numero}?text=${mensagem}`;
     window.open(url, '_blank');
+    fecharModal();
   }
 
   const produtosFiltrados = produtos.filter(produto => {
     if (!termoPesquisa.trim()) return true
-    
     const termo = termoPesquisa.toLowerCase()
     return (
       produto.titulo.toLowerCase().includes(termo) ||
@@ -90,7 +148,7 @@ Aguardo seu retorno! 😊`;
               
               <button 
                 className="btn-pedido"
-                onClick={() => abrirWhatsApp(produto.titulo)}
+                onClick={() => abrirModalPedido(produto)}
               >
                 <FaWhatsapp className="whatsapp-icon" />
                 <FaShoppingCart className="cart-icon" />
@@ -100,6 +158,86 @@ Aguardo seu retorno! 😊`;
           </div>
         ))}
       </div>
+
+      {/* Modal para selecionar essência e endereço */}
+      {modalAberto && produtoSelecionado && (
+        <div className="modal-overlay">
+          <div className="modal-conteudo">
+            <div className="modal-header">
+              <h2>Finalizar Pedido</h2>
+              <button className="btn-fechar-modal" onClick={fecharModal}>
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className="modal-body">
+              <div className="info-produto-modal">
+                <h3>{produtoSelecionado.titulo}</h3>
+                <p className="produto-preco-modal">{produtoSelecionado.preco}</p>
+                <p className="produto-categoria-modal">{produtoSelecionado.categoria}</p>
+              </div>
+
+              {/* Mostrar seleção de essência apenas se NÃO for sabonete */}
+              {!isSabonete(produtoSelecionado) && (
+                <div className="selecao-essencia">
+                  <label htmlFor="essencia">Selecione uma essência:</label>
+                  <div className="lista-essencias">
+                    {essencias.map((essencia, index) => (
+                      <div 
+                        key={index}
+                        className={`essencia-option ${essenciaSelecionada === essencia ? 'selecionada' : ''}`}
+                        onClick={() => setEssenciaSelecionada(essencia)}
+                      >
+                        {essencia}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Mostrar mensagem para sabonete */}
+              {isSabonete(produtoSelecionado) && (
+                <div className="mensagem-sabonete">
+                  <p className="info-sabonete">
+                    <strong>Produto com aroma único:</strong> Este sabonete possui uma fragrância especial e não requer seleção de essência.
+                  </p>
+                </div>
+              )}
+
+              <div className="endereco-input">
+                <label htmlFor="endereco">
+                  {isSabonete(produtoSelecionado) 
+                    ? "Endereço para entrega:" 
+                    : "Endereço para entrega:"}
+                </label>
+                <textarea 
+                  id="endereco"
+                  placeholder="Digite seu endereço completo (Rua, número, bairro, cidade, CEP)..."
+                  value={endereco}
+                  onChange={(e) => setEndereco(e.target.value)}
+                  rows="3"
+                />
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button 
+                className="btn-cancelar"
+                onClick={fecharModal}
+              >
+                Cancelar
+              </button>
+              <button 
+                className="btn-confirmar"
+                onClick={finalizarPedidoWhatsApp}
+                disabled={!endereco.trim()}
+              >
+                <FaWhatsapp /> Enviar Pedido via WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
