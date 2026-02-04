@@ -10,7 +10,6 @@ function PaginaPrincipal() {
   const [essenciaSelecionada, setEssenciaSelecionada] = useState('')
   const [endereco, setEndereco] = useState('')
 
-  // Lista de essências disponíveis
   const essencias = [
     'Toque Amor (Chá c/Roma)',
     'Toque Alegria (Alecrim/Baunilha)',
@@ -26,29 +25,27 @@ function PaginaPrincipal() {
 
   const produtos = [
     { id: 1, imagem: 'image1.png', titulo: 'Kit de Luxo - Pétalas Douradas', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 2, imagem: 'image2.png', titulo: 'Kit de Luxo - Elefante Dourado', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 3, imagem: 'image3.png', titulo: 'Kits personalizados', preco: 'R$ 200,00', categoria: 'kit personalizado' },
-    { id: 4, imagem: 'image4.png', titulo: 'Kit de Luxo - Sala de Estar', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 5, imagem: 'image5.png', titulo: 'Kit de Luxo - Corações Azuis', preco: 'R$ 280,00', categoria: 'kit luxo' },
+    { id: 2, imagem: 'image2.jpg', titulo: 'Kit de Luxo - Elefante Dourado', preco: 'R$ 300,00', categoria: 'kit luxo' },
+    { id: 3, imagem: 'image3.jpeg', titulo: 'Kits personalizados', preco: 'R$ 200,00', categoria: 'kit personalizado' },
+    { id: 4, imagem: 'image4.jpeg', titulo: 'Kit de Luxo - Sala de Estar', preco: 'R$ 300,00', categoria: 'kit luxo' },
+    { id: 5, imagem: 'image5.jpeg', titulo: 'Kit de Luxo - Corações Azuis', preco: 'R$ 280,00', categoria: 'kit luxo' },
     { id: 6, imagem: 'image6.png', titulo: 'Kit de Luxo - Alma Dourada', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 7, imagem: 'image7.png', titulo: 'Kit Essência Gold', preco: 'R$ 180,00', categoria: 'kit' },
+    { id: 7, imagem: 'image7.jpeg', titulo: 'Kit Essência Gold', preco: 'R$ 180,00', categoria: 'kit' },
     { id: 8, imagem: 'image8.png', titulo: 'Kit de Luxo - Cristal', preco: 'R$ 280,00', categoria: 'kit luxo' },
     { id: 9, imagem: 'image9.png', titulo: 'Kit de Luxo - Perola Real', preco: 'R$ 280,00', categoria: 'kit luxo' },
     { id: 10, imagem: 'image10.png', titulo: 'Kit de Luxo - Toque de Neve', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 11, imagem: 'image11.png', titulo: 'Home Spray 100ml', preco: 'R$ 50,00', categoria: 'spray' },
-    { id: 12, imagem: 'image12.png', titulo: 'Sabonete Liquido', preco: 'R$ 50,00', categoria: 'sabonete' },
+    { id: 11, imagem: 'image11.jpeg', titulo: 'Home Spray 100ml', preco: 'R$ 50,00', categoria: 'spray' },
+    { id: 12, imagem: 'image12.jpeg',titulo: 'Sabonete Liquido', preco: 'R$ 50,00', categoria: 'sabonete' },
     { id: 13, imagem: 'image13.jpeg', titulo: 'Refil de Difusor 240ml', preco: 'R$ 60,00', categoria: 'refil' },
     { id: 14, imagem: 'image14.png', titulo: 'Mine Home Spray', preco: 'R$ 10,00', categoria: 'spray' },
-    { id: 15, imagem: 'image15.png', titulo: 'Home Spray', preco: 'R$ 75,00', categoria: 'spray' }
+    { id: 15, imagem: 'image15.jpeg', titulo: 'Home Spray', preco: 'R$ 75,00', categoria: 'spray' }
   ]
 
-  // Função para verificar se o produto é um sabonete
   const isSabonete = (produto) => {
     return produto.categoria === 'sabonete' || 
            produto.titulo.toLowerCase().includes('sabonete');
   }
 
-  // Função para abrir modal
   const abrirModalPedido = (produto) => {
     setProdutoSelecionado(produto)
     setEssenciaSelecionada('')
@@ -56,7 +53,6 @@ function PaginaPrincipal() {
     setModalAberto(true)
   }
 
-  // Função para fechar modal
   const fecharModal = () => {
     setModalAberto(false)
     setProdutoSelecionado(null)
@@ -64,7 +60,6 @@ function PaginaPrincipal() {
     setEndereco('')
   }
 
-  // Função para gerar mensagem completa
   const gerarMensagemWhatsApp = (produtoTitulo, essencia, enderecoCliente, isSaboneteProduto) => {
     let mensagem = `Olá! Gostaria de fazer um pedido do produto:
 
