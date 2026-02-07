@@ -112,6 +112,8 @@ src/
 - Catálogo em PDF para download
 - Integração com Instagram
 
+  [Site](essenciasdeamor.com)
+
 ---
 
 **"Mais que um site, uma ponte entre bem-estar e conexão humana"**  
