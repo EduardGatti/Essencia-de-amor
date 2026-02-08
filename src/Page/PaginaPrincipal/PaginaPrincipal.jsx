@@ -24,26 +24,26 @@ function PaginaPrincipal() {
   ]
 
   const produtos = [
-    { id: 1, imagem: 'image1.png', titulo: 'Kit de Luxo - Pétalas Douradas', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 2, imagem: 'image2.jpg', titulo: 'Kit de Luxo - Elefante Dourado', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 3, imagem: 'image3.jpeg', titulo: 'Kits personalizados', preco: 'R$ 200,00', categoria: 'kit personalizado' },
-    { id: 4, imagem: 'image4.jpeg', titulo: 'Kit de Luxo - Sala de Estar', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 5, imagem: 'image5.jpeg', titulo: 'Kit de Luxo - Corações Azuis', preco: 'R$ 280,00', categoria: 'kit luxo' },
-    { id: 6, imagem: 'image6.png', titulo: 'Kit de Luxo - Alma Dourada', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 7, imagem: 'image7.jpeg', titulo: 'Kit Essência Gold', preco: 'R$ 180,00', categoria: 'kit' },
-    { id: 8, imagem: 'image8.png', titulo: 'Kit de Luxo - Cristal', preco: 'R$ 280,00', categoria: 'kit luxo' },
-    { id: 9, imagem: 'image9.png', titulo: 'Kit de Luxo - Perola Real', preco: 'R$ 280,00', categoria: 'kit luxo' },
-    { id: 10, imagem: 'image10.png', titulo: 'Kit de Luxo - Toque de Neve', preco: 'R$ 300,00', categoria: 'kit luxo' },
-    { id: 11, imagem: 'image11.jpeg', titulo: 'Home Spray 100ml', preco: 'R$ 50,00', categoria: 'spray' },
-    { id: 12, imagem: 'image12.jpeg',titulo: 'Sabonete Liquido', preco: 'R$ 50,00', categoria: 'sabonete' },
-    { id: 13, imagem: 'image13.jpeg', titulo: 'Refil de Difusor 240ml', preco: 'R$ 60,00', categoria: 'refil' },
-    { id: 14, imagem: 'image14.png', titulo: 'Mine Home Spray', preco: 'R$ 10,00', categoria: 'spray' },
-    { id: 15, imagem: 'image15.jpeg', titulo: 'Home Spray', preco: 'R$ 75,00', categoria: 'spray' }
+    { id: 1, imagem: 'image1.png', titulo: 'Kit de Luxo - Pétalas Douradas', preco: 'R$ 300,00', categoria: 'kit luxo', estoque: 'Á venda' },
+    { id: 2, imagem: 'image2.jpg', titulo: 'Kit de Luxo - Elefante Dourado', preco: 'R$ 300,00', categoria: 'kit luxo', estoque: 'Á venda' },
+    { id: 3, imagem: 'image3.jpeg', titulo: 'Kits personalizados', preco: 'R$ 200,00', categoria: 'kit personalizado', estoque: 'Á venda' },
+    { id: 4, imagem: 'image4.jpeg', titulo: 'Kit de Luxo - Sala de Estar', preco: 'R$ 300,00', categoria: 'kit luxo', estoque: 'Á venda' },
+    { id: 5, imagem: 'image5.jpeg', titulo: 'Kit de Luxo - Corações Azuis', preco: 'R$ 280,00', categoria: 'kit luxo', estoque: 'Esgotado' },
+    { id: 6, imagem: 'image6.png', titulo: 'Kit de Luxo - Alma Dourada', preco: 'R$ 300,00', categoria: 'kit luxo', estoque: 'Á venda' },
+    { id: 7, imagem: 'image7.jpeg', titulo: 'Kit Essência Gold', preco: 'R$ 180,00', categoria: 'kit', estoque: 'Á venda' },
+    { id: 8, imagem: 'image8.png', titulo: 'Kit de Luxo - Cristal', preco: 'R$ 280,00', categoria: 'kit luxo', estoque: 'Á venda' },
+    { id: 9, imagem: 'image9.png', titulo: 'Kit de Luxo - Perola Real', preco: 'R$ 280,00', categoria: 'kit luxo', estoque: 'Á venda' },
+    { id: 10, imagem: 'image10.png', titulo: 'Kit de Luxo - Toque de Neve', preco: 'R$ 300,00', categoria: 'kit luxo', estoque: 'Á venda' },
+    { id: 11, imagem: 'image11.jpeg', titulo: 'Home Spray 100ml', preco: 'R$ 50,00', categoria: 'spray', estoque: 'Á venda' },
+    { id: 12, imagem: 'image12.jpeg', titulo: 'Sabonete Liquido', preco: 'R$ 50,00', categoria: 'sabonete', estoque: 'Á venda' },
+    { id: 13, imagem: 'image13.jpeg', titulo: 'Refil de Difusor 240ml', preco: 'R$ 60,00', categoria: 'refil', estoque: 'Á venda' },
+    { id: 14, imagem: 'image14.png', titulo: 'Mine Home Spray', preco: 'R$ 10,00', categoria: 'spray', estoque: 'Á venda' },
+    { id: 15, imagem: 'image15.jpeg', titulo: 'Home Spray', preco: 'R$ 75,00', categoria: 'spray', estoque: 'Á venda' }
   ]
 
   const isSabonete = (produto) => {
-    return produto.categoria === 'sabonete' || 
-           produto.titulo.toLowerCase().includes('sabonete');
+    return produto.categoria === 'sabonete' ||
+      produto.titulo.toLowerCase().includes('sabonete');
   }
 
   const abrirModalPedido = (produto) => {
@@ -80,7 +80,6 @@ function PaginaPrincipal() {
     return encodeURIComponent(mensagem);
   }
 
-  // Função para abrir WhatsApp com todas as informações
   const finalizarPedidoWhatsApp = () => {
     if (!produtoSelecionado) return
 
@@ -114,22 +113,22 @@ function PaginaPrincipal() {
         <h1 className='text-titulo'>Sua essência de <br /> bem-estar em cada detalhe.</h1>
         <img src='imageEssencia.png' alt="Essência de bem-estar" />
       </div>
-      
-      <input 
-        className='input-pesquisa' 
-        type="search" 
-        placeholder='Pesquise por nome, categoria ou preço...' 
+
+      <input
+        className='input-pesquisa'
+        type="search"
+        placeholder='Pesquise por nome, categoria ou preço...'
         value={termoPesquisa}
         onChange={(e) => setTermoPesquisa(e.target.value)}
       />
-      
+
       {termoPesquisa && produtosFiltrados.length === 0 && (
         <div className="sem-resultados">
           <p>Nenhum produto encontrado para "{termoPesquisa}"</p>
           <button onClick={() => setTermoPesquisa('')}>Limpar busca</button>
         </div>
       )}
-      
+
       <div className="container-grid">
         {produtosFiltrados.map((produto) => (
           <div className="item" key={produto.id}>
@@ -138,10 +137,17 @@ function PaginaPrincipal() {
               <div className="produto-texto">
                 <h3 className="produto-titulo">{produto.titulo}</h3>
                 <p className="produto-categoria">{produto.categoria}</p>
+                <p
+                  className={`produto-estoque ${produto.estoque === 'Esgotado' ? 'estoque-esgotado' : 'estoque-disponivel'
+                    }`}
+                >
+                  {produto.estoque}
+                </p>
+
                 <p className="produto-preco">{produto.preco}</p>
               </div>
-              
-              <button 
+
+              <button
                 className="btn-pedido"
                 onClick={() => abrirModalPedido(produto)}
               >
@@ -172,13 +178,12 @@ function PaginaPrincipal() {
                 <p className="produto-categoria-modal">{produtoSelecionado.categoria}</p>
               </div>
 
-              {/* Mostrar seleção de essência apenas se NÃO for sabonete */}
               {!isSabonete(produtoSelecionado) && (
                 <div className="selecao-essencia">
                   <label htmlFor="essencia">Selecione uma essência:</label>
                   <div className="lista-essencias">
                     {essencias.map((essencia, index) => (
-                      <div 
+                      <div
                         key={index}
                         className={`essencia-option ${essenciaSelecionada === essencia ? 'selecionada' : ''}`}
                         onClick={() => setEssenciaSelecionada(essencia)}
@@ -190,7 +195,6 @@ function PaginaPrincipal() {
                 </div>
               )}
 
-              {/* Mostrar mensagem para sabonete */}
               {isSabonete(produtoSelecionado) && (
                 <div className="mensagem-sabonete">
                   <p className="info-sabonete">
@@ -201,11 +205,11 @@ function PaginaPrincipal() {
 
               <div className="endereco-input">
                 <label htmlFor="endereco">
-                  {isSabonete(produtoSelecionado) 
-                    ? "Endereço para entrega:" 
+                  {isSabonete(produtoSelecionado)
+                    ? "Endereço para entrega:"
                     : "Endereço para entrega:"}
                 </label>
-                <textarea 
+                <textarea
                   id="endereco"
                   placeholder="Digite seu endereço completo (Rua, número, bairro, cidade, CEP)..."
                   value={endereco}
@@ -216,13 +220,13 @@ function PaginaPrincipal() {
             </div>
 
             <div className="modal-footer">
-              <button 
+              <button
                 className="btn-cancelar"
                 onClick={fecharModal}
               >
                 Cancelar
               </button>
-              <button 
+              <button
                 className="btn-confirmar"
                 onClick={finalizarPedidoWhatsApp}
                 disabled={!endereco.trim()}

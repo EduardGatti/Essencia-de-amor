@@ -536,6 +536,35 @@
 .container-grid div.item:nth-child(14) { animation-delay: 0.75s; }
 .container-grid div.item:nth-child(15) { animation-delay: 0.8s; }
 
+.produto-estoque {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 10px;
+    width: fit-content;
+}
+
+/* DISPONÍVEL - VERDE */
+.estoque-disponivel {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    color: #2e7d32;
+    border: 1px solid #81c784;
+}
+
+/* ESGOTADO - VERMELHO */
+.estoque-esgotado {
+    background: linear-gradient(135deg, #fdecea, #f9c5c0);
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+
 @media screen and (max-width: 1024px) {
     .card-principal {
         width: 95%;
@@ -691,6 +720,8 @@
         font-size: 14px;
     }
 }
+
+
 
 @media screen and (max-width: 380px) {
     .card-principal h1.text-titulo {
